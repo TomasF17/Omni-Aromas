@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Omni Aromas - Aromatização Profissional</title>
+   <link rel="shortcut icon" href="https://ik.imagekit.io/mtrtszz/imagem_2026-06-15_112519617-removebg-preview.png?tr=c-at_max_enlarge,w-50,h-20">
+   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="assets/css/aos.css">
+   <link rel="stylesheet" href="assets/css/main.css"> 
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+   <style>
+      /* ─── Product Carousel via Swiper ─── */
+      .iair-carousel-section { position: relative; overflow: hidden; }
+      .swiper-iair { overflow: visible; }
+
+         
+
+      .iair-product-card {
+         background: transparent; 
+         border-radius: 16px;
+         overflow: hidden;
+         transition: border-color 0.3s, transform 0.3s;
+         cursor: pointer;
+         display: flex;
+         flex-direction: column;
+         text-align:center;
+      }
+      .iair-product-card:hover {
+         border-color: var(--base);
+         transform: translateY(-4px);
+      }
+      .iair-product-card .iair-card-img {
+         width: 100%;
+         height: 220px;
+         object-fit: contain;
+         background: transparent;
+         padding: 24px;
+         display: block;
+      }
+      .iair-card-body {
+         padding: 20px 22px 22px;
+         display: flex;
+         flex-direction: column;
+         flex: 1;
+      }
+      .iair-card-cat {
+         font-size: 11px;
+         font-weight: 600;
+         letter-spacing: 0.08em;
+         text-transform: uppercase;
+         color: var(--base);
+         margin-bottom: 8px;
+      }
+      .iair-card-name {
+         font-size: 17px;
+         font-weight: 600;
+         color: #f0f0f0;
+         margin-bottom: 8px;
+         line-height: 1.3;
+      }
+      .iair-card-desc {
+         font-size: 13px;
+         color: rgba(240,240,240,0.5);
+         line-height: 1.6;
+         flex: 1;
+         margin-bottom: 0;
+      }
+      .iair-card-price {
+         font-size: 18px;
+         font-weight: 700;
+         color: #f0f0f0;
+      }
+      .iair-add-btn {
+         background: transparent;
+         color: #ffff;
+         border:1px solid #ffff;
+         border-radius: 8px;
+         padding: 11px 20px;
+         font-size: 12px;
+         font-weight: 700;
+         letter-spacing: 0.05em;
+         text-transform: uppercase;
+         cursor: pointer;
+         transition: opacity 0.2s, transform 0.15s;
+         white-space: nowrap;
+         display: flex;
+         align-items: center;
+         gap: 6px;
+      }
+      .iair-add-btn:hover { opacity: 0.85; transform: scale(1.03); }
+      .iair-add-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+      /* Carousel nav - sem dots */
+      .iair-carousel-controls {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 16px;
+         margin-top: 40px;
+      }
+      .iair-carousel-prev,
+      .iair-carousel-next {
+         width: 48px;
+         height: 48px;
+         background: rgba(255,255,255,0.05);
+         border: 1px solid rgba(255,255,255,0.1);
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         transition: background 0.2s, border-color 0.2s, color 0.2s;
+         color: #f0f0f0;
+      }
+      .iair-carousel-prev:hover,
+      .iair-carousel-next:hover {
+         background: rgba(201,243,29,0.1);
+         border-color: var(--base);
+         color: var(--base);
+      }
+
+      /* Identidade card placeholder */
+      .iair-placeholder-icon {
+         width: 100%;
+         height: 220px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background: transparent;
+      }
+
+      /* ─── Video Section ─── */
+      .awoard__section.video-over-area { position: relative; overflow: hidden; }
+      .video-area {
+         position: relative;
+         display: flex;
+         align-items: stretch;
+         min-height: 100vh;
+      }
+      .video-area video {
+         position: absolute;
+         inset: 0;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         z-index: 0;
+      }
+      .left-text,
+      .right-text {
+         position: relative;
+         z-index: 2;
+         display: flex;
+         align-items: center;
+         padding: 60px 40px;
+         flex: 0 0 auto;
+      }
+      .left-text { justify-content: flex-start; }
+      .right-text { justify-content: flex-end; margin-left: auto; }
+      .left-text h1,
+      .right-text h1 { writing-mode: vertical-rl; text-orientation: mixed; }
+
+      /* Letra a letra */
+      .video-word {
+         display: inline-block;
+         opacity: 0;
+         transform: translateY(18px);
+         transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1);
+      }
+      .video-word.revealed { opacity: 1; transform: translateY(0); }
+      .video-word.hiding {
+         opacity: 0;
+         transform: translateY(-14px);
+         transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+   </style>
+</head>
+<body>
+
+<!-- Mount point do componente wishlist/modal -->
+<div id="iair-wishlist-root"></div>
+
+<!--<< banner >>-->
+<section class="banner__section">
+   <div class="video_banner_area">
+       <video src="https://ik.imagekit.io/fsobpyaa5i/Firefly%20Cinematic%20luxury%20product%20reveal%20video%20of%20this%20product%20emerging%20slowly%20from%20complete%20darkness%20(2).mp4" autoplay muted></video>
+   </div>
+   <!--<< Header v-1 >>-->
+   <header class="header-section">
+      <div class="container">
+         <div class="header-wrapper">
+            <div class="main__logo">
+               <a href="index.html" class="logo">
+                  <img src="https://ik.imagekit.io/mtrtszz/imagem_2026-06-15_112519617-removebg-preview.png?tr=c-at_max_enlarge,w-320,h-239" alt="Omni Aromas" style="max-height:100px;width:auto;">
+               </a>
+            </div>
+            <ul class="main-menu">
+               <li><a href="index.html">Início</a></li>
+               <li><a href="#prot">Difusores</a></li>
+               <li><a href="#services">Fragrâncias</a></li>
+               <li><a href="#aplicacoes">Aplicações</a></li>
+               <li><a href="contact.html">Contactos</a></li>
+            </ul>
+            <div class="menu__components d-flex align-items-center">
+               <button data-iair-modal="contact" class="d-flex fw-500 cmn--btn align-items-center gap-2">
+                  <span class="get__text">Fale Connosco</span>
+                  <span><i class="bi bi-arrow-right fz-20"></i></span>
+               </button>
+               <div class="header-bar d-lg-none">
+                  <span></span><span></span><span></span>
+               </div>
+               <div class="remove__click">
+                  <i class="bi bi-list"></i>
+               </div>
+            </div>
+         </div>
+      </div>
+   </header>
+   <!--<< Header v-1 >>-->
+   <div class="container" id="header">
+      <div class="row g-4">
+         <div class="col-lg-8">
+            <div class="banner__content">
+               <a href="#0" class="bn__currently">
+                  <span class="d-block">Disponível para o seu espaço</span>
+                  <span class="d-flex gap-4 align-items-center">
+                     Portugal & Europa
+                     <i class="bi bi-arrow-up-right"></i>
+                  </span>
+               </a>
+               <h1>
+                  <span class="hone">Aromatização</span>
+                  <span class="d-block designers" data-text="Profissional">Profissional</span>
+               </h1>
+               <!-- CTAs banner - sem botão play -->
+               <div class="d-flex gap-3 mt-4 flex-wrap">
+                  <button data-iair-modal="order" class="iair-cta-order">
+                     Solicitar Encomenda
+                     <i class="bi bi-arrow-up-right"></i>
+                  </button>
+                  <button data-iair-modal="contact" class="iair-cta-contact">
+                     Fale Connosco
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="banner__leftinfo">
+      <div class="left__infomobile">
+         <a href="#0"><img src="assets/img/banner/dial.png" alt="img"></a>
+         <a href="#0">(+351) 912 345 678</a>
+      </div>
+      <div class="right__infoscroll">
+         <a href="#prot" class="scroll">scroll down</a>
+         <a href="#prot" class="scroll__bar"><img src="assets/img/banner/scroll-down.png" alt="img"></a>
+      </div>
+   </div>
+   <div class="banner__rightinfo">
+      <div class="right__infoscroll">
+         <a href="#0" class="scroll">Siga-nos</a>
+         <a href="#0" class="scroll__bar"><img src="assets/img/banner/scroll-down.png" alt="img"></a>
+      </div>
+      <div class="banner__xlsocial">
+         <ul class="banner__soci d-grid justify-content-center">
+            <li><a href="https://facebook.com" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="https://wa.me/351912345678" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a></li>
+         </ul>
+      </div>
+   </div>
+</section>
+<!--<< banner >>-->
+
+<!--<< about >>-->
+<section class="about__section pt-120 pb-120" id="about">
+   <div class="container">
+      <div class="personal__head text-center"> 
+         <span class="common__sub" data-aos="fade-down" data-aos-duration="1000">Fragrâncias</span>
+         <p class="descrp">
+            A Omni Aromas é especialista em aromatização profissional. Desenvolvemos soluções olfativas que transformam espaços comerciais, hoteleiros e de bem-estar em experiências sensoriais inesquecíveis.
+         </p>
+         </div>
+         <div class="image-container">
+            <img class="about_image" src="https://media.cecotec.cloud/a01_eu01_117514/purearoma-1300-hydra-speaker_es49ay_1.png" alt="Omni Aromas"> 
+         </div>
+      </div>
+      <div class="buttoninfo"">
+         <button class="buttonfoto">
+            Saiba mais agora
+         <i class="bi bi-arrow-up-right"></i>
+         </button>
+      </div>
+</section>
+<!--<< about >>-->
+
+
+<!--<< Video Section ─ Fragrância em destaque >>-->
+<section class="awoard__section video-over-area" id="iair-video-section">
+   <div class="video-area">
+      <div class="left-text" id="video-left-text">
+         <h1>
+            <span class="d-block designers" id="left-word-wrap"></span>
+         </h1>
+      </div>
+      <video id="iair-main-video" muted playsinline
+         src="https://ik.imagekit.io/fsobpyaa5i/Firefly%20Cinematic%20luxury%20product%20reveal%20video%20of%20this%20product%20emerging%20slowly%20from%20complete%20darkness.mp4">
+      </video>
+      <div class="right-text" id="video-right-text">
+         <h1>
+            <span class="d-block designers" id="right-word-wrap"></span>
+         </h1>
+      </div>
+   </div>
+</section>
+
+<!--<< Difusores >>-->
+<section class="project__section pt-120 pb-120" id="prot">
+   <div class="container">
+      <div class="project__head text-center">
+         <span class="common__sub" data-aos="fade-down" data-aos-duration="1000">Difusores</span>
+         <h2 class="fw-500" data-aos="fade-down" data-aos-duration="2000">
+            Tecnologia de nebulização a frio para
+            cada tipologia de espaço
+         </h2>
+      </div>
+      <div class="iair-products-grid">
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HY-10001H.png"
+                  alt="WAV-MDAS10001H">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Comercial · Capacidade: 2*1000ml/5L</span>
+                  <h3>WAV-MDAS10001H - €</h3>
+               </div>
+               <button data-iair-add="dif-001" data-iair-name="Infinity Pro 3000" data-iair-price="349"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20,%20floating%20in%20a%20pure%20black%20background.%20The%20p%20218563.png"
+                  data-iair-cat="Difusor Profissional" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYS-05P.png"
+                  alt="WAV-MDAS05P">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Compacto · Até 500 m³</span>
+                  <h3>WAV-MDAS05P - €</h3>
+               </div>
+               <button data-iair-add="dif-002" data-iair-name="Compact Elite" data-iair-price="199"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product(difusor),%20floating%20in%20a%20pure%20bl%20218563.png"
+                  data-iair-cat="Difusor Compacto" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYM-3000C.png"
+                  alt="WAV-MDAS3000C">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Industrial · Até 8.000 m³</span>
+                  <h3>WAV-MDAS3000C - €</h3>
+               </div>
+               <button data-iair-add="dif-003" data-iair-name="Maxi Flow X5" data-iair-price="549"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                  data-iair-cat="Difusor Industrial" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYS-30N.png"
+                  alt="WAV-MDAS30N">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Oriental · Oud · Sândalo</span>
+                  <h3>WAV-MDAS30N - €</h3>
+               </div>
+               <button data-iair-add="fra-001" data-iair-name="Royal Oud" data-iair-price="89"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png"
+                  data-iair-cat="Fragrância Oriental" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYS-501F.png"
+                  alt="WAV-MDAS501F">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Fresco · Chá Branco · Menta</span>
+                  <h3>WAV-MDAS501F - €</h3>
+               </div>
+               <button data-iair-add="fra-002" data-iair-name="White Tea & Mint" data-iair-price="69"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                  data-iair-cat="Fragrância Fresca" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYM-1500F.png"
+                  alt="WAV-MDAS1500F">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Amadeirado · Cedro · Âmbar</span>
+                  <h3>WAV-MDAS1500F - €</h3>
+               </div>
+               <button data-iair-add="fra-003" data-iair-name="Madeira & Âmbar" data-iair-price="79"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(2).png"
+                  data-iair-cat="Fragrância Amadeirada" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
+            <a href="#" class="thumb mb-30 imgc">
+               <img
+                  src="https://ik.imagekit.io/mtrtszz/DIFUSORES/HYM-1001F.png"
+                  alt="WAV-MDAS1001F">
+            </a>
+            <div class="content d-flex align-items-center justify-content-between gap-2">
+               <div class="left__cont">
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Residencial · Inteligente · Até 150 m³</span>
+                  <h3>WAV-MDAS1001F - €</h3>
+               </div>
+               <button data-iair-add="dif-004" data-iair-name="Omni Home Premium" data-iair-price="149"
+                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                  data-iair-cat="Difusor Residencial" class="common__icon"
+                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                  <i class="bi bi-heart"></i>
+               </button>
+            </div>
+         </div>
+
+      </div>
+      <div class="custom__hover">
+         <a href="https://exportechfragrancias.junianinho.workers.dev/difusores" class="hover__circle mauto"
+            data-aos="zoom-out-down" data-aos-duration="2000">
+            <span class="box">
+               <i class="bi bi-arrow-up-right"></i>
+               <span class="textmore">Ver Todos</span>
+            </span>
+         </a>
+      </div>
+   </div>
+</section>
+<!--<< Difusores >>-->
+
+<!--<< contacto / meeting >>-->
+<section class="project__metting overhid pt-120 pb-120">
+   <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+         <div class="pro__metting__content">
+            <div class="project__head">
+               <span class="common__sub" data-aos="fade-down" data-aos-duration="1000">Identidade Olfativa</span>
+               <h2 class="fw-500" data-aos="fade-down" data-aos-duration="1600">
+                  Criamos a fragrância exclusiva
+                  da sua marca
+               </h2>
+            </div>
+            <div class="about__contbox__item pb-30" data-aos="fade-up" data-aos-duration="1000">
+               <span class="icon"><i class="bi bi-envelope"></i></span>
+               <span class="box">
+                  <span class="ptext fz-18 mb-1 d-block">Email</span>
+                  <a href="#0">geral@OmniAromas.pt</a>
+               </span>
+            </div>
+            <div class="about__contbox__item pb-30 pt-30" data-aos="fade-up" data-aos-duration="1500">
+               <span class="icon"><i class="bi bi-geo-alt"></i></span>
+               <span class="box">
+                  <span class="ptext fz-18 mb-1 d-block">Localização</span>
+                  <a href="#0">Porto, Portugal</a>
+               </span>
+            </div>
+            <div class="d-flex gap-3 mt-4 flex-wrap" data-aos="fade-up" data-aos-duration="1800">
+               <button data-iair-modal="order" class="iair-cta-order">
+                  Solicitar Encomenda <i class="bi bi-arrow-up-right"></i>
+               </button>
+               <button data-iair-modal="contact" class="iair-cta-contact">
+                  Fale Connosco
+               </button>
+            </div>
+         </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="pro__mettingthumb" data-aos="zoom-in" data-aos-duration="2000">
+                <div class="image">
+                  <img src="https://ik.imagekit.io/fsobpyaa5i/Firefly_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png" alt="">
+               <div class="downshadow"></div>
+               </div>
+            </div>
+        </div>
+      </div>
+   </div>
+</section>
+<!--<< contacto / meeting >>-->
+
+<!--<< Fragrâncias / Carousel >>-->
+<section id="services" class="service__section overhid pt-120 pb-120">
+   <div class="container">
+      <div class="project__head text-center">
+         <span class="common__sub" data-aos="fade-down" data-aos-duration="1000">Fragrâncias</span>
+         <h2 class="fw-500" data-aos="fade-up" data-aos-duration="1200">
+            Composições Exclusivas Para Cada Ambiente E Negócio
+         </h2>
+      </div>
+
+      <!-- SWIPER -->
+      <div class="iair-carousel-section mt-5">
+         <div class="swiper swiper-iair" id="swiper-produtos">
+            <div class="swiper-wrapper">
+
+               <div class="swiper-slide">
+                  <div class="iair-product-card">
+                     <img class="iair-card-img" src="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png" alt="Vanilla Black" loading="lazy">
+                     <div class="iair-card-body">
+                        <p class="iair-card-cat">Fragrância · Gourmand</p>
+                        <h3 class="iair-card-name">Vanilla Black</h3>
+                        <p class="iair-card-desc">Baunilha negra, almíscar quente e âmbar. Envolvência sensorial para lounges e espaços premium.</p>
+                        <div class="iair-card-footer">
+                           <span class="iair-card-price">€74,00</span>
+                           <button class="iair-add-btn" data-iair-add="fra-vb" data-iair-name="Vanilla Black" data-iair-price="74"
+                              data-iair-img="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png"
+                              data-iair-cat="Fragrância Gourmand">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              Adicionar
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="swiper-slide">
+                  <div class="iair-product-card">
+                     <img class="iair-card-img" src="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png" alt="Madeiras do Oriente" loading="lazy">
+                     <div class="iair-card-body">
+                        <p class="iair-card-cat">Fragrância · Oriental</p>
+                        <h3 class="iair-card-name">Madeiras do Oriente</h3>
+                        <p class="iair-card-desc">Cedro, sândalo e especiarias orientais. Presença sofisticada para hotéis de luxo e spas.</p>
+                        <div class="iair-card-footer">
+                           <span class="iair-card-price">€79,00</span>
+                           <button class="iair-add-btn" data-iair-add="fra-mo" data-iair-name="Madeiras do Oriente" data-iair-price="79"
+                              data-iair-img="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png"
+                              data-iair-cat="Fragrância Oriental">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              Adicionar
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="swiper-slide">
+                  <div class="iair-product-card">
+                     <img class="iair-card-img" src="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png" alt="Difusor Teardrop" loading="lazy">
+                     <div class="iair-card-body">
+                        <p class="iair-card-cat">Difusor · Compacto</p>
+                        <h3 class="iair-card-name">Teardrop Essence</h3>
+                        <p class="iair-card-desc">Design em madeira natural. Nebulização silenciosa até 80 m². Ideal para escritórios e receções.</p>
+                        <div class="iair-card-footer">
+                           <span class="iair-card-price">€129,00</span>
+                           <button class="iair-add-btn" data-iair-add="dif-td" data-iair-name="Teardrop Essence" data-iair-price="129"
+                              data-iair-img="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png"
+                              data-iair-cat="Difusor Compacto">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              Adicionar
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="swiper-slide">
+                  <div class="iair-product-card">
+                     <img class="iair-card-img" src="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg" alt="Tulip Light" loading="lazy">
+                     <div class="iair-card-body">
+                        <p class="iair-card-cat">Difusor · Premium</p>
+                        <h3 class="iair-card-name">Tulip Light</h3>
+                        <p class="iair-card-desc">Cerâmica premium com luz ambiente integrada. Nebulização contínua 200 m². Perfeito para spas e boutiques.</p>
+                        <div class="iair-card-footer">
+                           <span class="iair-card-price">€189,00</span>
+                           <button class="iair-add-btn" data-iair-add="dif-tl" data-iair-name="Tulip Light" data-iair-price="189"
+                              data-iair-img="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg"
+                              data-iair-cat="Difusor Premium">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              Adicionar
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="swiper-slide">
+                  <div class="iair-product-card">
+                     <img class="iair-card-img" src="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566" alt="Kit Aromático" loading="lazy">
+                     <div class="iair-card-body">
+                        <p class="iair-card-cat">Kit · Pack Completo</p>
+                        <h3 class="iair-card-name">Kit Aromas & Velas</h3>
+                        <p class="iair-card-desc">Pack completo com difusor, 2 fragrâncias exclusivas e velas aromáticas. Solução turnkey para o seu espaço.</p>
+                        <div class="iair-card-footer">
+                           <span class="iair-card-price">€220,00</span>
+                           <button class="iair-add-btn" data-iair-add="kit-av" data-iair-name="Kit Aromas & Velas" data-iair-price="220"
+                              data-iair-img="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566"
+                              data-iair-cat="Kit Pack Completo">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              Adicionar
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+ 
+
+            </div><!-- /swiper-wrapper -->
+         </div><!-- /swiper -->
+
+         <!-- Apenas setas, sem dots -->
+         <div class="iair-carousel-controls">
+            <button class="iair-carousel-prev" id="swiper-prev" aria-label="Anterior">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="iair-carousel-next" id="swiper-next" aria-label="Próximo">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+         </div>
+      </div>
+
+      <div class="text-center mt-5 d-flex gap-3 justify-content-center flex-wrap">
+         <button data-iair-modal="order" class="iair-cta-order">
+            Solicitar Encomenda <i class="bi bi-arrow-up-right"></i>
+         </button>
+      </div>
+   </div>
+</section>
+<!--<< Fragrâncias >>-->
+
+<!--<< aplicações >>-->
+<section class="process__section pt-120 pb-120" id="aplicacoes">
+   <div class="container">
+      <div class="project__head text-center">
+         <span class="common__sub" data-aos="fade-down" data-aos-duration="1000">Aplicações</span>
+         <h2 class="fw-500" data-aos="fade-up" data-aos-duration="1000">
+            A sua identidade olfativa em
+           <span class="d-block">cada tipo de espaço</span>
+         </h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
+         <div class="process__item">
+            <h2 class="white mb-24">Hotelaria & Lazer</h2>
+            <p class="mb-30 pra fz-18">Hotéis, spas e espaços de bem-estar.</p>
+            <ul>
+               <li>Lobbies e quartos</li>
+               <li>Zonas de spa e piscina</li>
+               <li>Eventos e reuniões</li>
+            </ul>
+         </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
+         <div class="process__item">
+            <h2 class="white mb-24">Retalho & Comércio</h2>
+            <p class="mb-30 pra fz-18">Lojas, boutiques e centros comerciais.</p>
+            <ul>
+               <li>Moda e acessórios</li>
+               <li>Galerias e showrooms</li>
+               <li>Espaços de marca</li>
+            </ul>
+         </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6" data-aos="flip-up" data-aos-duration="500">
+         <div class="process__item">
+            <h2 class="white mb-24">Empresas</h2>
+            <p class="mb-30 pra fz-18">Escritórios, clínicas e ginásios.</p>
+            <ul>
+               <li>Open space e reuniões</li>
+               <li>Receções e espera</li>
+               <li>Saúde e bem-estar</li>
+            </ul>
+         </div>
+        </div>
+      </div>
+   </div>
+</section>
+<!--<< aplicações >>-->
+
+<!--<< Footer >>-->
+<footer clEssência="footer__section">
+   <div class="container">
+      <div class="footer__top pt-120 pb-120">
+         <div class="fl" data-aos="fade-up" data-aos-duration="1000">Fale Connosco</div>
+         <div class="row g-4">
+            <div class="col-lg-6">
+               <div class="get__content">
+                  <p>Especialistas em aromatização profissional para hotéis, retalho, spas e escritórios em Portugal.</p>
+                  <a href="#0">geral@OmniAromas.pt</a>
+               </div>
+               <div class="mt-4 d-flex gap-3 flex-wrap">
+                  <button data-iair-modal="contact" class="iair-cta-contact">Fale Connosco</button>
+                  <button data-iair-modal="order" class="iair-cta-order">Solicitar Encomenda <i class="bi bi-arrow-up-right"></i></button>
+               </div>
+            </div>
+            <div class="col-lg-6">
+               <div class="get__rightcontetn">
+                  <div class="row g-4">
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="social__footer">Facebook <i class="bi bi-arrow-right"></i></a>
+                     </div>
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <a href="https://wa.me/351912345678" target="_blank" rel="noopener" class="social__footer">WhatsApp <i class="bi bi-arrow-right"></i></a>
+                     </div>
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <a href="https://exportechfragrancias.junianinho.workers.dev/difusores" class="social__footer">Difusores <i class="bi bi-arrow-right"></i></a>
+                     </div>
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <a href="https://exportechfragrancias.junianinho.workers.dev/fragrancias" class="social__footer">Fragrâncias <i class="bi bi-arrow-right"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="footer__bottom cmn__bg">
+      <div class="container">
+         <div class="copyright">
+            <p class="white">Copyright © 2024 <a href="index.html" class="base">Omni Aromas.</a> Todos os direitos reservados.</p>
+            <ul class="terms">
+               <li><a href="#0">Termos & Condições</a></li>
+               <li><a href="#0">Política de Privacidade</a></li>
+            </ul>
+            <a href="#header" class="toparrow"><i class="bi bi-arrow-up-short"></i></a>
+         </div>
+      </div>
+   </div>
+</footer>
+<!--<< Footer >>-->
+
+<!--<< sub side bar >>-->
+<div class="subside__barmenu sub__contact">
+   <div class="remove__click d-flex justify-content-center align-items-center">
+      <i class="bi bi-x-lg"></i>
+   </div>
+   <div class="sub__contact__wrapper d-grid">
+      <a href="index.html" class="side-logo">
+         <img src="https://ik.imagekit.io/mtrtszz/imagem_2026-06-15_112519617-removebg-preview.png?tr=c-at_max_enlarge,w-270,h-200" alt="Omni Aromas" style="max-height:100px;width:auto;">
+      </a>
+      <p>Especialistas em aromatização profissional. Tecnologia de nebulização a frio com fragrâncias exclusivas para cada tipologia de espaço.</p>
+      <div class="sub__contact-left d-grid">
+         <div class="sub__contac-item"><div class="content">
+            <span class="address d-block">morada</span>
+            <span class="textp">Porto, Portugal</span>
+         </div></div>
+         <div class="sub__contac-item"><div class="content">
+            <span class="address d-block">email</span>
+            <a href="javascript:void(0)" class="textp">geral@OmniAromas.pt</a>
+         </div></div>
+         <div class="sub__contac-item"><div class="content">
+            <span class="address d-block">telefone</span>
+            <a href="javascript:void(0)" class="textp">(+351) 912 345 678</a>
+         </div></div>
+      </div>
+      <div class="sub__contact-right mb-80 position-relative">
+         <ul class="social d-flex gap-3">
+            <li><a href="https://facebook.com" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="https://wa.me/351912345678" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a></li>
+         </ul>
+      </div>
+      <button data-iair-modal="contact" class="d-flex justify-content-center fw-500 cmn--btn align-items-center gap-2">
+         <span><i class="bi bi-chevron-right"></i></span>
+         <span class="get__text">Fale Connosco</span>
+      </button>
+   </div>
+</div>
+<!--<< sub side bar >>-->
+
+<!--<< Scroll To Top >>-->
+<div class="progress-wrap">
+   <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path fill="var(--base)" d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+   </svg>
+   <i class="bi bi-arrow-90deg-up title topping"></i>
+</div>
+<!--<< Scroll To Top >>-->
+
+   <script src="assets/js/jquery-3.7.0.min.js"></script>
+   <script src="assets/js/viewport.jquery.js"></script>
+   <script src="assets/js/bootstrap.min.js"></script>
+   <script src="assets/js/aos.js"></script>
+   <script src="assets/js/jquery.nice-select.min.js"></script>
+   <script src="assets/js/jquery.magnific-popup.min.js"></script>
+   <script src="assets/js/odometer.min.js"></script>
+   <script src="assets/js/wow.min.js"></script>
+   <script src="assets/js/main.js"></script>
+   <!-- Swiper JS via CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <!-- Wishlist Component -->
+   <script src="assets/js/wishlist.js"></script>
+
+   <script>
+   /* ── SWIPER CAROUSEL ── */
+   (function () {
+      new Swiper('#swiper-produtos', {
+         slidesPerView: 3,
+         spaceBetween: 24,
+         loop: true,
+         grabCursor: true,
+         speed: 900,
+         autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+         },
+         navigation: {
+            nextEl: '#swiper-next',
+            prevEl: '#swiper-prev',
+         },
+         breakpoints: {
+            0:   { slidesPerView: 1, spaceBetween: 16 },
+            576: { slidesPerView: 2, spaceBetween: 20 },
+            992: { slidesPerView: 3, spaceBetween: 24 },
+         },
+      });
+   })();
+
+   /* ── VIDEO SECTION ── */
+   (function () {
+      const section   = document.getElementById('iair-video-section');
+      const video     = document.getElementById('iair-main-video');
+      const leftWrap  = document.getElementById('left-word-wrap');
+      const rightWrap = document.getElementById('right-word-wrap');
+      if (!section || !video) return;
+
+      const LEFT_TEXT  = 'Essência';
+      const RIGHT_TEXT = 'Pura';
+
+      let leftRevealed  = false;
+      let rightRevealed = false;
+
+      function buildWords(el, text) {
+         el.innerHTML = '';
+         text.split('').forEach((ch, i) => {
+            const s = document.createElement('span');
+            s.className = 'video-word';
+            s.textContent = ch === ' ' ? '\u00a0' : ch;
+            s.style.transitionDelay = (i * 70) + 'ms';
+            el.appendChild(s);
+         });
+      }
+      buildWords(leftWrap,  LEFT_TEXT);
+      buildWords(rightWrap, RIGHT_TEXT);
+
+      function revealWords(el) {
+         el.querySelectorAll('.video-word').forEach(s => {
+            s.classList.remove('hiding');
+            s.classList.add('revealed');
+         });
+      }
+      function hideWords(el) {
+         el.querySelectorAll('.video-word').forEach((s, i) => {
+            s.style.transitionDelay = (i * 35) + 'ms';
+            s.classList.remove('revealed');
+            s.classList.add('hiding');
+         });
+         setTimeout(() => {
+            el.querySelectorAll('.video-word').forEach(s => s.classList.remove('hiding'));
+         }, 500);
+      }
+
+      const sectionObs = new IntersectionObserver(entries => {
+         entries.forEach(entry => {
+            if (entry.isIntersecting) {
+               video.currentTime = 0;
+               video.play().catch(() => {});
+               leftRevealed  = false;
+               rightRevealed = false;
+            } else {
+               video.pause();
+               hideWords(leftWrap);
+               hideWords(rightWrap);
+               leftRevealed  = false;
+               rightRevealed = false;
+            }
+         });
+      }, { threshold: 0.25 });
+      sectionObs.observe(section);
+
+      video.addEventListener('timeupdate', () => {
+         if (!video.duration) return;
+         const pct = video.currentTime / video.duration;
+         if (pct >= 0.15 && !leftRevealed) {
+            leftRevealed = true;
+            revealWords(leftWrap);
+         }
+         if (pct >= 0.40 && !rightRevealed) {
+            rightRevealed = true;
+            revealWords(rightWrap);
+         }
+         if (pct >= 0.999) video.pause();
+      });
+
+      const rightObs = new IntersectionObserver(entries => {
+         entries.forEach(entry => {
+            if (entry.isIntersecting && leftRevealed && !rightRevealed) {
+               rightRevealed = true;
+               revealWords(rightWrap);
+            }
+            if (!entry.isIntersecting && rightRevealed) {
+               hideWords(rightWrap);
+               rightRevealed = false;
+            }
+         });
+      }, { threshold: 0.5 });
+      rightObs.observe(document.getElementById('video-right-text'));
+
+      video.removeAttribute('loop');
+      video.loop = false;
+   })();
+
+
+
+
+
+
+   /*-------- Hover com cores aleatorias ---------*/ 
+    let cards = document.querySelectorAll("#aplicacoes  .process__item");
+    if(cards){
+      cards.forEach(card => {  
+          card.addEventListener("mouseenter", ()=>{
+             let texts = ["ul", "li", "p", "h2"];
+              const Colors = ["#996b43", "#fcc860", "#333940"]; 
+              card.style.background = Colors[Math.floor(Math.random() * Colors.length)];
+              texts.forEach(txt => {
+                card.querySelectorAll(txt).forEach(xt => {
+                    xt.style.color = "#ffff";
+                });
+              });
+          }); 
+          card.addEventListener("mouseleave", ()=>{ 
+              card.style.background = "rgba(0,0,0,0.0)";
+               texts.forEach(txt => {
+                card.querySelectorAll(txt).forEach(xt => {
+                    xt.style.color = "#ffff";
+                });
+              });
+          });
+      });
+    }
+
+
+
+   </script>
+</body>
+</html>

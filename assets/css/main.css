@@ -5716,6 +5716,10 @@
    position: relative;
  }
 
+ .bi .bi-person-circle{
+color: var(--white);
+ }
+
  .video-btn::before {
    position: absolute;
    border: 2px solid #fff;
@@ -5992,4 +5996,23 @@
    .iair-products-grid {
       grid-template-columns: 1fr;
    }
+}
+
+
+.process__section .row.g-4 {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+.process__section .process__item {
+   display: flex;
+   flex-direction: column;
+   height: 100%;       
+   width: 100%;      
+}
+
+/* Opcional: faz com que a lista (ul) empurre o conteúdo se quiseres alinhar os itens por baixo */
+.process__section .process__item ul {
+   margin-top: auto;   
 }

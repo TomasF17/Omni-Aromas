@@ -72,9 +72,9 @@
       descricao: 'Difusor de alta potência preparado para ambientes de grande volume e renovação de ar acelerada.'
     },
 
-    'fra-001': {
-      type: 'fragrancia',
-      name: 'Royal Oud',
+    'dif-004': {
+      type: 'difusor',
+      name: 'WAV-MDAS30N',
       sku: 'WAV-MDAS30N',
       price: 89,
       category: 'Fragrância Oriental',
@@ -83,13 +83,14 @@
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS30N?updatedAt=1781688564444.png',
         'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png'
       ],
-      piramide: { topo: 'Bergamota e Açafrão', coracao: 'Oud e Rosa Damascena', fundo: 'Sândalo e Âmbar Cinzento' },
-      beneficio: 'O oud e o sândalo estão tradicionalmente associados ao relaxamento profundo, ajudando a criar uma sensação de calma e sofisticação em espaços de receção.'
+      capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
+      segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
+      descricao: 'Difusor de alta potência preparado para ambientes de grande volume e renovação de ar acelerada.'
     },
 
-    'fra-002': {
-      type: 'fragrancia',
-      name: 'White Tea & Mint',
+    'dif-005': {
+      type: 'difusor',
+      name: 'WAV-MDAS501F',
       sku: 'WAV-MDAS501F',
       price: 69,
       category: 'Fragrância Fresca',
@@ -98,13 +99,14 @@
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS501F?updatedAt=1781688600367.png',
         'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png'
       ],
-      piramide: { topo: 'Menta e Bergamota', coracao: 'Chá Branco', fundo: 'Almíscar Branco' },
-      beneficio: 'As notas frescas de menta e chá branco transmitem uma sensação imediata de revigoramento, ajudando a aumentar os níveis de energia e concentração.'
+      capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
+      segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
+      descricao: 'Difusor de alta potência preparado para ambientes de grande volume e renovação de ar acelerada.'
     },
 
-    'fra-003': {
-      type: 'fragrancia',
-      name: 'Madeira & Âmbar',
+    'dif-006': {
+      type: 'difusor',
+      name: 'WAV-MDAS1500F',
       sku: 'WAV-MDAS1500F',
       price: 79,
       category: 'Fragrância Amadeirada',
@@ -113,13 +115,14 @@
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1500F?updatedAt=1781688612075.png',
         'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(2).png'
       ],
-      piramide: { topo: 'Bergamota', coracao: 'Cedro', fundo: 'Âmbar e Sândalo' },
-      beneficio: 'As notas amadeiradas têm um efeito tradicionalmente calmante e estabilizador, contribuindo para reduzir a sensação de stress em ambientes de trabalho.'
+     capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
+      segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
+      descricao: 'Difusor de alta potência preparado para ambientes de grande volume e renovação de ar acelerada.'
     },
 
-    'dif-004': {
+    'dif-007': {
       type: 'difusor',
-      name: 'Omni Home Premium',
+      name: 'WAV-MDAS1001F',
       sku: 'WAV-MDAS1001F',
       price: 149,
       category: 'Difusor Residencial',

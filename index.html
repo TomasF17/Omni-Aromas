@@ -2,6 +2,7 @@
 <html lang="pt">
 <head>
    <meta charset="UTF-8">
+   <script>(function(){try{if(localStorage.getItem('iair_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Omni Aromas - Aromatização Profissional</title>
@@ -40,6 +41,9 @@
          padding: 24px;
          display: block;
       }
+      /* Wrapper clicável da imagem (abre a ficha de produto) */
+      .ipv-thumb-wrap { position: relative; cursor: pointer; }
+      .ipv-thumb-wrap:hover .iair-card-img { transform: scale(1.04); transition: transform .25s; }
       .iair-card-body {
          padding: 20px 22px 22px;
          display: flex;
@@ -73,6 +77,24 @@
          font-weight: 700;
          color: #f0f0f0;
       }
+      /* Linha com o botão de wishlist (mini) + botão de carrinho */
+      .iair-card-actions-row { display: flex; align-items: center; gap: 8px; }
+      .iair-wish-mini {
+         background: transparent;
+         color: #ffff;
+         border: 1px solid #ffff;
+         border-radius: 8px;
+         width: 38px;
+         height: 38px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         transition: opacity 0.2s, transform 0.15s;
+         flex-shrink: 0;
+      }
+      .iair-wish-mini:hover { opacity: 0.85; transform: scale(1.05); }
+      .iair-wish-mini svg { width: 15px; height: 15px; }
       .iair-add-btn {
          background: transparent;
          color: #ffff;
@@ -182,6 +204,10 @@
 
 <!-- Mount point do componente wishlist/modal -->
 <div id="iair-wishlist-root"></div>
+<!-- Mount point do componente carrinho de compras -->
+<div id="iair-cart-root"></div>
+<!-- Mount point da ficha de produto (Difusores / Fragrâncias) -->
+<div id="iair-pview-root"></div>
 
 <!--<< banner >>-->
 <section class="banner__section">
@@ -211,6 +237,7 @@
                <li><a href="login.html" class="base"><i class="bi bi-person-circle"></i> Entrar</a></li>
             </ul>
             <div class="menu__components d-flex align-items-center">
+               <div id="iair-theme-root"></div>
                <button data-iair-modal="contact" class="d-flex fw-500 cmn--btn align-items-center gap-2">
                   <span class="get__text">Fale Connosco</span>
                   <span><i class="bi bi-arrow-right fz-20"></i></span>
@@ -332,145 +359,202 @@
             cada tipologia de espaço
          </h2>
       </div>
+      <div id="iair-filter-difusores"></div>
       <div class="iair-products-grid">
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="1200">
+            <a href="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png" class="thumb mb-30 imgc" data-iair-view="dif-001">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png"
                   alt="WAV-MDAS10001H">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Comercial · Capacidade: 2*1000ml/5L</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Comercial · Capacidade: 2*1000ml/5L · Até 1.200 m²</span>
                   <h3>WAV-MDAS10001H - €</h3>
                </div>
-               <button data-iair-add="dif-001" data-iair-name="Infinity Pro 3000" data-iair-price="349"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20,%20floating%20in%20a%20pure%20black%20background.%20The%20p%20218563.png"
-                  data-iair-cat="Difusor Profissional" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="dif-001" data-iair-name="Infinity Pro 3000" data-iair-price="349"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20,%20floating%20in%20a%20pure%20black%20background.%20The%20p%20218563.png"
+                     data-iair-cat="Difusor Profissional" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="dif-001" data-cart-name="Infinity Pro 3000" data-cart-price="349"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png"
+                     data-cart-cat="Difusor Profissional" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="150">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="dif-002">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS05P?updatedAt=1781688542439.png"
                   alt="WAV-MDAS05P">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Compacto · Até 500 m³</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Compacto · Até 150 m²</span>
                   <h3>WAV-MDAS05P - €</h3>
                </div>
-               <button data-iair-add="dif-002" data-iair-name="Compact Elite" data-iair-price="199"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product(difusor),%20floating%20in%20a%20pure%20bl%20218563.png"
-                  data-iair-cat="Difusor Compacto" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="dif-002" data-iair-name="Compact Elite" data-iair-price="199"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product(difusor),%20floating%20in%20a%20pure%20bl%20218563.png"
+                     data-iair-cat="Difusor Compacto" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="dif-002" data-cart-name="Compact Elite" data-cart-price="199"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS05P?updatedAt=1781688542439.png"
+                     data-cart-cat="Difusor Compacto" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="3000">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="dif-003">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS3000C?updatedAt=1781688552371.png"
                   alt="WAV-MDAS3000C">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Industrial · Até 8.000 m³</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Industrial · Até 3.000 m²</span>
                   <h3>WAV-MDAS3000C - €</h3>
                </div>
-               <button data-iair-add="dif-003" data-iair-name="Maxi Flow X5" data-iair-price="549"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
-                  data-iair-cat="Difusor Industrial" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="dif-003" data-iair-name="Maxi Flow X5" data-iair-price="549"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                     data-iair-cat="Difusor Industrial" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="dif-003" data-cart-name="Maxi Flow X5" data-cart-price="549"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS3000C?updatedAt=1781688552371.png"
+                     data-cart-cat="Difusor Industrial" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="70">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="fra-001">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS30N?updatedAt=1781688564444.png"
                   alt="WAV-MDAS30N">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Oriental · Oud · Sândalo</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Oriental · Oud · Sândalo · Até 70 m²</span>
                   <h3>WAV-MDAS30N - €</h3>
                </div>
-               <button data-iair-add="fra-001" data-iair-name="Royal Oud" data-iair-price="89"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png"
-                  data-iair-cat="Fragrância Oriental" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="fra-001" data-iair-name="Royal Oud" data-iair-price="89"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png"
+                     data-iair-cat="Fragrância Oriental" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="fra-001" data-cart-name="Royal Oud" data-cart-price="89"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS30N?updatedAt=1781688564444.png"
+                     data-cart-cat="Fragrância Oriental" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="50">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="fra-002">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS501F?updatedAt=1781688600367.png"
                   alt="WAV-MDAS501F">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Fresco · Chá Branco · Menta</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Fresco · Chá Branco · Menta · Até 50 m²</span>
                   <h3>WAV-MDAS501F - €</h3>
                </div>
-               <button data-iair-add="fra-002" data-iair-name="White Tea & Mint" data-iair-price="69"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
-                  data-iair-cat="Fragrância Fresca" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="fra-002" data-iair-name="White Tea & Mint" data-iair-price="69"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                     data-iair-cat="Fragrância Fresca" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="fra-002" data-cart-name="White Tea & Mint" data-cart-price="69"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS501F?updatedAt=1781688600367.png"
+                     data-cart-cat="Fragrância Fresca" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="90">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="fra-003">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1500F?updatedAt=1781688612075.png"
                   alt="WAV-MDAS1500F">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Amadeirado · Cedro · Âmbar</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Amadeirado · Cedro · Âmbar · Até 90 m²</span>
                   <h3>WAV-MDAS1500F - €</h3>
                </div>
-               <button data-iair-add="fra-003" data-iair-name="Madeira & Âmbar" data-iair-price="79"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(2).png"
-                  data-iair-cat="Fragrância Amadeirada" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="fra-003" data-iair-name="Madeira & Âmbar" data-iair-price="79"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(2).png"
+                     data-iair-cat="Fragrância Amadeirada" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="fra-003" data-cart-name="Madeira & Âmbar" data-cart-price="79"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1500F?updatedAt=1781688612075.png"
+                     data-cart-cat="Fragrância Amadeirada" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
-         <div class="project__item" data-aos="fade-up" data-aos-duration="1000">
-            <a href="#" class="thumb mb-30 imgc">
+         <div class="project__item" data-aos="fade-up" data-aos-duration="1000" data-iair-m2="120">
+            <a href="#" class="thumb mb-30 imgc" data-iair-view="dif-004">
                <img
                   src="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1001F"
                   alt="WAV-MDAS1001F">
             </a>
             <div class="content d-flex align-items-center justify-content-between gap-2">
                <div class="left__cont">
-                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Residencial · Inteligente · Até 150 m³</span>
+                  <span class="base mb-2 mb-xxl-3 d-block text-uppercase">Residencial · Inteligente · Até 120 m²</span>
                   <h3>WAV-MDAS1001F - €</h3>
                </div>
-               <button data-iair-add="dif-004" data-iair-name="Omni Home Premium" data-iair-price="149"
-                  data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
-                  data-iair-cat="Difusor Residencial" class="common__icon"
-                  style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
-                  <i class="bi bi-heart"></i>
-               </button>
+               <div class="iair-card-actions d-flex align-items-center gap-2">
+                  <button data-iair-add="dif-004" data-iair-name="Omni Home Premium" data-iair-price="149"
+                     data-iair-img="https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png"
+                     data-iair-cat="Difusor Residencial" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar à lista">
+                     <i class="bi bi-heart"></i>
+                  </button>
+                  <button data-cart-add="dif-004" data-cart-name="Omni Home Premium" data-cart-price="149"
+                     data-cart-img="https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1001F"
+                     data-cart-cat="Difusor Residencial" class="common__icon"
+                     style="background:none;border:none;cursor:pointer;" title="Adicionar ao carrinho">
+                     <i class="bi bi-bag-plus"></i>
+                  </button>
+               </div>
             </div>
          </div>
 
@@ -549,105 +633,151 @@
       </div>
 
       <!-- SWIPER -->
+      <div id="iair-filter-fragrancias"></div>
       <div class="iair-carousel-section mt-5">
          <div class="swiper swiper-iair" id="swiper-produtos">
             <div class="swiper-wrapper">
 
                <div class="swiper-slide">
-                  <div class="iair-product-card">
-                     <img class="iair-card-img" src="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png" alt="Vanilla Black" loading="lazy">
+                  <div class="iair-product-card" data-iair-m2="70">
+                     <div class="ipv-thumb-wrap" data-iair-view="fra-vb">
+                        <img class="iair-card-img" src="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png" alt="Vanilla Black" loading="lazy">
+                     </div>
                      <div class="iair-card-body">
-                        <p class="iair-card-cat">Fragrância · Gourmand</p>
+                        <p class="iair-card-cat">Fragrância · Gourmand · Até 70 m²</p>
                         <h3 class="iair-card-name">Vanilla Black</h3>
                         <p class="iair-card-desc">Baunilha negra, almíscar quente e âmbar. Envolvência sensorial para lounges e espaços premium.</p>
                         <div class="iair-card-footer">
                            <span class="iair-card-price">€74,00</span>
-                           <button class="iair-add-btn" data-iair-add="fra-vb" data-iair-name="Vanilla Black" data-iair-price="74"
-                              data-iair-img="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png"
-                              data-iair-cat="Fragrância Gourmand">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                              Adicionar
-                           </button>
+                           <div class="iair-card-actions-row">
+                              <button class="iair-wish-mini" data-iair-add="fra-vb" data-iair-name="Vanilla Black" data-iair-price="74"
+                                 data-iair-img="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png"
+                                 data-iair-cat="Fragrância Gourmand" title="Adicionar à lista">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              </button>
+                              <button class="iair-add-btn" data-cart-add="fra-vb" data-cart-name="Vanilla Black" data-cart-price="74"
+                                 data-cart-img="https://cdn.awsli.com.br/400x400/2102/2102462/produto/146356949/vanilla-black-9dfps523sv.png"
+                                 data-cart-cat="Fragrância Gourmand">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                 Adicionar
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
 
                <div class="swiper-slide">
-                  <div class="iair-product-card">
-                     <img class="iair-card-img" src="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png" alt="Madeiras do Oriente" loading="lazy">
+                  <div class="iair-product-card" data-iair-m2="110">
+                     <div class="ipv-thumb-wrap" data-iair-view="fra-mo">
+                        <img class="iair-card-img" src="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png" alt="Madeiras do Oriente" loading="lazy">
+                     </div>
                      <div class="iair-card-body">
-                        <p class="iair-card-cat">Fragrância · Oriental</p>
+                        <p class="iair-card-cat">Fragrância · Oriental · Até 110 m²</p>
                         <h3 class="iair-card-name">Madeiras do Oriente</h3>
                         <p class="iair-card-desc">Cedro, sândalo e especiarias orientais. Presença sofisticada para hotéis de luxo e spas.</p>
                         <div class="iair-card-footer">
                            <span class="iair-card-price">€79,00</span>
-                           <button class="iair-add-btn" data-iair-add="fra-mo" data-iair-name="Madeiras do Oriente" data-iair-price="79"
-                              data-iair-img="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png"
-                              data-iair-cat="Fragrância Oriental">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                              Adicionar
-                           </button>
+                           <div class="iair-card-actions-row">
+                              <button class="iair-wish-mini" data-iair-add="fra-mo" data-iair-name="Madeiras do Oriente" data-iair-price="79"
+                                 data-iair-img="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png"
+                                 data-iair-cat="Fragrância Oriental" title="Adicionar à lista">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              </button>
+                              <button class="iair-add-btn" data-cart-add="fra-mo" data-cart-name="Madeiras do Oriente" data-cart-price="79"
+                                 data-cart-img="https://cdn.awsli.com.br/2500x2500/2102/2102462/produto/146356945/madeiras-do-oriente-jo3tgi3fwi.png"
+                                 data-cart-cat="Fragrância Oriental">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                 Adicionar
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
 
                <div class="swiper-slide">
-                  <div class="iair-product-card">
-                     <img class="iair-card-img" src="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png" alt="Difusor Teardrop" loading="lazy">
+                  <div class="iair-product-card" data-iair-m2="80">
+                     <div class="ipv-thumb-wrap" data-iair-view="dif-td">
+                        <img class="iair-card-img" src="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png" alt="Difusor Teardrop" loading="lazy">
+                     </div>
                      <div class="iair-card-body">
                         <p class="iair-card-cat">Difusor · Compacto</p>
                         <h3 class="iair-card-name">Teardrop Essence</h3>
                         <p class="iair-card-desc">Design em madeira natural. Nebulização silenciosa até 80 m². Ideal para escritórios e receções.</p>
                         <div class="iair-card-footer">
                            <span class="iair-card-price">€129,00</span>
-                           <button class="iair-add-btn" data-iair-add="dif-td" data-iair-name="Teardrop Essence" data-iair-price="129"
-                              data-iair-img="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png"
-                              data-iair-cat="Difusor Compacto">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                              Adicionar
-                           </button>
+                           <div class="iair-card-actions-row">
+                              <button class="iair-wish-mini" data-iair-add="dif-td" data-iair-name="Teardrop Essence" data-iair-price="129"
+                                 data-iair-img="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png"
+                                 data-iair-cat="Difusor Compacto" title="Adicionar à lista">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              </button>
+                              <button class="iair-add-btn" data-cart-add="dif-td" data-cart-name="Teardrop Essence" data-cart-price="129"
+                                 data-cart-img="https://png.pngtree.com/png-vector/20250517/ourmid/pngtree-a-sleek-brown-wooden-essential-oil-diffuser-with-teardrop-shape-emitting-png-image_16298820.png"
+                                 data-cart-cat="Difusor Compacto">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                 Adicionar
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
 
                <div class="swiper-slide">
-                  <div class="iair-product-card">
-                     <img class="iair-card-img" src="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg" alt="Tulip Light" loading="lazy">
+                  <div class="iair-product-card" data-iair-m2="200">
+                     <div class="ipv-thumb-wrap" data-iair-view="dif-tl">
+                        <img class="iair-card-img" src="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg" alt="Tulip Light" loading="lazy">
+                     </div>
                      <div class="iair-card-body">
                         <p class="iair-card-cat">Difusor · Premium</p>
                         <h3 class="iair-card-name">Tulip Light</h3>
                         <p class="iair-card-desc">Cerâmica premium com luz ambiente integrada. Nebulização contínua 200 m². Perfeito para spas e boutiques.</p>
                         <div class="iair-card-footer">
                            <span class="iair-card-price">€189,00</span>
-                           <button class="iair-add-btn" data-iair-add="dif-tl" data-iair-name="Tulip Light" data-iair-price="189"
-                              data-iair-img="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg"
-                              data-iair-cat="Difusor Premium">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                              Adicionar
-                           </button>
+                           <div class="iair-card-actions-row">
+                              <button class="iair-wish-mini" data-iair-add="dif-tl" data-iair-name="Tulip Light" data-iair-price="189"
+                                 data-iair-img="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg"
+                                 data-iair-cat="Difusor Premium" title="Adicionar à lista">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              </button>
+                              <button class="iair-add-btn" data-cart-add="dif-tl" data-cart-name="Tulip Light" data-cart-price="189"
+                                 data-cart-img="https://naturashop.pt/loja/925-large_default/difusor-oleos-essenciais-tulip-light.jpg"
+                                 data-cart-cat="Difusor Premium">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                 Adicionar
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
 
                <div class="swiper-slide">
-                  <div class="iair-product-card">
-                     <img class="iair-card-img" src="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566" alt="Kit Aromático" loading="lazy">
+                  <div class="iair-product-card" data-iair-m2="60">
+                     <div class="ipv-thumb-wrap" data-iair-view="kit-av">
+                        <img class="iair-card-img" src="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566" alt="Kit Aromático" loading="lazy">
+                     </div>
                      <div class="iair-card-body">
                         <p class="iair-card-cat">Kit · Pack Completo</p>
                         <h3 class="iair-card-name">Kit Aromas & Velas</h3>
                         <p class="iair-card-desc">Pack completo com difusor, 2 fragrâncias exclusivas e velas aromáticas. Solução turnkey para o seu espaço.</p>
                         <div class="iair-card-footer">
                            <span class="iair-card-price">€220,00</span>
-                           <button class="iair-add-btn" data-iair-add="kit-av" data-iair-name="Kit Aromas & Velas" data-iair-price="220"
-                              data-iair-img="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566"
-                              data-iair-cat="Kit Pack Completo">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                              Adicionar
-                           </button>
+                           <div class="iair-card-actions-row">
+                              <button class="iair-wish-mini" data-iair-add="kit-av" data-iair-name="Kit Aromas & Velas" data-iair-price="220"
+                                 data-iair-img="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566"
+                                 data-iair-cat="Kit Pack Completo" title="Adicionar à lista">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                              </button>
+                              <button class="iair-add-btn" data-cart-add="kit-av" data-cart-name="Kit Aromas & Velas" data-cart-price="220"
+                                 data-cart-img="https://www.essencialorganics.com/cdn/shop/files/difusor_de_aromas_sun_41_2_20201214014732.webp?v=1742302978&width=566"
+                                 data-cart-cat="Kit Pack Completo">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                 Adicionar
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -839,6 +969,14 @@
    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
    <!-- Wishlist Component -->
    <script src="assets/js/wishlist.js"></script>
+   <!-- Modo Light/Dark -->
+   <script src="assets/js/theme.js"></script>
+   <!-- Carrinho de Compras -->
+   <script src="assets/js/cart.js"></script>
+   <!-- Ficha de Produto (Difusores e Fragrâncias) -->
+   <script src="assets/js/product-view.js"></script>
+   <!-- Filtro por m² -->
+   <script src="assets/js/filters.js"></script>
 
    <script>
    /* ── SWIPER CAROUSEL ── */

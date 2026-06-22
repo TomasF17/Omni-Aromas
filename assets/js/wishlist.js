@@ -32,6 +32,8 @@
   let offcanvasOpen = false;
   let modalOpen = false;
   let modalMode = 'order'; // 'order' | 'contact'
+  let modalOrderItems = null;   // quando a encomenda vem do Carrinho (cart.js), e não da Wishlist
+  let modalOnConfirm = null;    // callback a correr depois de confirmar a encomenda (ex: limpar o carrinho)
 
   /* ─── HTML Injection ─────────────────────────────────────────── */
   function inject() {
@@ -677,9 +679,11 @@
   }
 
   /* ─── Modal ──────────────────────────────────────────────────── */
-  function openModal(mode, productName) {
+  function openModal(mode, productName, options) {
     modalMode = mode || 'contact';
     modalOpen = true;
+    modalOrderItems = (options && options.items) || null;
+    modalOnConfirm  = (options && options.onConfirm) || null;
     renderModal(productName);
     document.getElementById('iair-modal-overlay').classList.add('iair-active');
     document.body.style.overflow = 'hidden';
@@ -695,8 +699,9 @@
   function renderModal(productName) {
     const inner = document.getElementById('iair-modal-inner');
     const isOrder = modalMode === 'order';
+    const items = modalOrderItems || cart; // o Carrinho (cart.js) pode passar os seus próprios itens
 
-    const orderTable = isOrder && cart.length > 0 ? `
+    const orderTable = isOrder && items.length > 0 ? `
       <table class="iair-order-table">
         <thead>
           <tr>
@@ -706,7 +711,7 @@
           </tr>
         </thead>
         <tbody>
-          ${cart.map(i => `
+          ${items.map(i => `
             <tr>
               <td>${esc(i.name)}</td>
               <td>${i.qty}</td>
@@ -715,7 +720,7 @@
           `).join('')}
           <tr>
             <td colspan="2" style="font-weight:600;color:var(--iair-text)">Total</td>
-            <td>€${cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2).replace('.', ',')}</td>
+            <td>€${items.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2).replace('.', ',')}</td>
           </tr>
         </tbody>
       </table>
@@ -728,6 +733,7 @@
     inner.innerHTML = ` 
       <h2 class="iair-modal-title">${isOrder ? 'Finalizar Encomenda' : 'Fale Connosco'}</h2>
       <p class="iair-modal-sub">${isOrder ? 'Preencha os seus dados para confirmarmos a sua encomenda. Entraremos em contacto em breve.' : 'Envie-nos uma mensagem. A nossa equipa responde em menos de 24 horas.'}</p>
+
 
       ${orderTable}
 
@@ -889,9 +895,15 @@
     `;
 
     if (modalMode === 'order') {
-      cart = [];
-      saveCart(cart);
-      renderCart();
+      if (typeof modalOnConfirm === 'function') {
+        modalOnConfirm(); // ex: cart.js limpa o seu próprio carrinho e atualiza o badge
+      } else {
+        cart = [];
+        saveCart(cart);
+        renderCart();
+      }
+      modalOrderItems = null;
+      modalOnConfirm = null;
     }
   }
 

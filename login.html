@@ -2,6 +2,7 @@
 <html lang="pt">
 <head>
    <meta charset="UTF-8">
+   <script>(function(){try{if(localStorage.getItem('iair_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <title>Omni Aromas - Entrar / Registar</title> 
@@ -93,33 +94,30 @@
 </head>
 <body>
 
-<!--<< Header Simplificado >>-->
 <header class="header-section" style="background: var(--body);">
    <div class="container">
-      <div class="header-wrapper justify-content-center">
+      <div class="header-wrapper justify-content-center" style="position:relative;">
          <div class="main__logo">
             <a href="index.html" class="logo">
                <img src="https://ik.imagekit.io/mtrtszz/imagem_2026-06-15_112519617-removebg-preview.png?tr=c-at_max_enlarge,w-320,h-239" alt="Omni Aromas" style="max-height:90px;width:auto;">
             </a>
          </div>
+         <div id="iair-theme-root" style="position:absolute;right:0;top:50%;transform:translateY(-50%);"></div>
       </div>
    </div>
 </header>
 
-<!--<< Área de Autenticação >>-->
 <main class="container auth-container">
    <div class="auth-card">
       
-      <!-- Abas de Alternância -->
       <div class="d-flex justify-content-center mb-4 border-bottom border-secondary">
          <button class="auth-toggle-btn active" id="btn-login" onclick="switchForm('login')">Entrar</button>
          <button class="auth-toggle-btn" id="btn-register" onclick="switchForm('register')">Criar Conta</button>
       </div>
 
-      <!-- Formulário de Login -->
       <section id="section-login" class="form-section active">
          <h3 class="text-center fz-24 mb-4">Bem-vindo de volta</h3>
-         <form action="login.php" method="POST">
+         <form id="loginForm">
             <div class="auth-form-group">
                <input type="email" name="email" placeholder="E-mail Corporativo / Pessoal" required>
             </div>
@@ -133,10 +131,9 @@
          </form>
       </section>
 
-      <!-- Formulário de Registo -->
       <section id="section-register" class="form-section">
          <h3 class="text-center fz-24 mb-4">Registar Espaço</h3>
-         <form action="register.php" method="POST">
+         <form id="registerForm">
             <div class="auth-form-group">
                <input type="text" name="username" placeholder="Nome Completo / Empresa" required>
             </div>
@@ -166,26 +163,100 @@
    <p class="white fz-14 m-0">Copyright © 2026 <a href="index.html" class="base">Omni Aromas.</a> Todos os direitos reservados.</p>
 </footer>
 
-<!--<< JavaScript para Alternar Formulários >>-->
+<script src="assets/js/theme.js"></script>
 <script>
-   function switchForm(type) {
-      const loginSection = document.getElementById('section-login');
-      const registerSection = document.getElementById('section-register');
-      const loginBtn = document.getElementById('btn-login');
-      const registerBtn = document.getElementById('btn-register');
+function switchForm(type) {
+   const loginSection = document.getElementById('section-login');
+   const registerSection = document.getElementById('section-register');
+   const loginBtn = document.getElementById('btn-login');
+   const registerBtn = document.getElementById('btn-register');
 
-      if (type === 'login') {
-         loginSection.classList.add('active');
-         registerSection.classList.remove('active');
-         loginBtn.classList.add('active');
-         registerBtn.classList.remove('active');
-      } else {
-         registerSection.classList.add('active');
-         loginSection.classList.remove('active');
-         registerBtn.classList.add('active');
-         loginBtn.classList.remove('active');
-      }
+   if (type === 'login') {
+      loginSection.classList.add('active');
+      registerSection.classList.remove('active');
+      loginBtn.classList.add('active');
+      registerBtn.classList.remove('active');
+   } else {
+      registerSection.classList.add('active');
+      loginSection.classList.remove('active');
+      registerBtn.classList.add('active');
+      loginBtn.classList.remove('active');
    }
+}
+
+// Garante o mapeamento seguro dos eventos após o HTML carregar completamente
+window.addEventListener('DOMContentLoaded', () => {
+   const API_URL = "http://localhost:5000/api";
+
+   // Capturar envio do formulário de REGISTO
+   const registerForm = document.getElementById('registerForm');
+   if (registerForm) {
+      registerForm.addEventListener('submit', async (e) => {
+         e.preventDefault(); // Bloqueia refreshes ou envios nativos
+
+         const username = e.target.username.value;
+         const email = e.target.email.value;
+         const password = e.target.password.value;
+         const password_confirm = e.target.password_confirm.value;
+
+         if (password !== password_confirm) {
+            alert("As palavras-passe não coincidem!");
+            return;
+         }
+
+         try {
+            const response = await fetch(`${API_URL}/register`, {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({ username, email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+               alert("Conta criada com sucesso! Já podes fazer login.");
+               e.target.reset();
+               switchForm('login'); 
+            } else {
+               alert(data.error || "Erro ao efetuar registo.");
+            }
+         } catch (error) {
+            alert("Não foi possível contactar o servidor backend. Confirma se correstes 'node server.js'.");
+         }
+      });
+   }
+
+   // Capturar envio do formulário de LOGIN
+   const loginForm = document.getElementById('loginForm');
+   if (loginForm) {
+      loginForm.addEventListener('submit', async (e) => {
+         e.preventDefault(); 
+
+         const email = e.target.email.value;
+         const password = e.target.password.value;
+
+         try {
+            const response = await fetch(`${API_URL}/login`, {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+               alert(`Bem-vindo de volta, ${data.username}!`);
+               localStorage.setItem('user', data.username);
+               window.location.href = "index.html"; 
+            } else {
+               alert(data.error || "Erro ao efetuar login.");
+            }
+         } catch (error) {
+            alert("Não foi possível contactar o servidor backend. Confirma se correstes 'node server.js'.");
+         }
+      });
+   }
+});
 </script>
 
 </body>

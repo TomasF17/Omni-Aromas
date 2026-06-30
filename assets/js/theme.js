@@ -118,7 +118,7 @@
         --pra: #6e6a60;
         --subtitle: #1c160f;
         --bgsection: #fffaf0;
-        --footer: #1c160f;
+        --footer: #ff8f0e;
         --ftext: #6e6a60;
         --border1: #e2dac8;
         --cusborder: rgba(28, 22, 15, 0.14);
@@ -178,6 +178,81 @@
       /* Página de Entrar / Registar */
       [data-theme="light"] .auth-card { background: #fffdf8 !important; border-color: var(--cusborder) !important; }
       [data-theme="light"] .auth-form-group input { background: #fff !important; color: var(--white) !important; }
+
+      /* ─────────────────────────────────────────────────────────
+         FIX: o main.css tem um SEGUNDO "body { background-color }"
+         mais abaixo no ficheiro (#0a0909 fixo) que sobrepõe a
+         variável --body. Sem isto, o fundo geral do site nunca
+         mudava, só o header/footer (que usam --footer/--body
+         num sítio onde essa segunda regra não interfere).
+         ───────────────────────────────────────────────────────── */
+      [data-theme="light"] body { background-color: var(--body) !important; }
+
+      /* ─────────────────────────────────────────────────────────
+         FIX: secções com fundo escuro fixo no main.css (não usavam
+         variáveis, por isso não reagiam ao toggle). O texto lá
+         dentro já usa var(--white)/var(--title)/var(--pra), que no
+         modo light passam a escuro — daí ficar ilegível em fundo
+         preto fixo.
+         ───────────────────────────────────────────────────────── */
+      [data-theme="light"] .about__v1wrap,
+      [data-theme="light"] .about__onecontent .about__contactwrap .abox,
+      [data-theme="light"] .project__metting,
+      [data-theme="light"] .process__section,
+      [data-theme="light"] .testimonial__v1wrap,
+      [data-theme="light"] .blog__section,
+      [data-theme="light"] .ser__components .accordion-item,
+      [data-theme="light"] .ser__components .accordion-item .accordion-header .accordion-button,
+      [data-theme="light"] .details__bigthumb .prot__detail__contact,
+      [data-theme="light"] .contact__item {
+        background: var(--bgsection) !important;
+        background-color: var(--bgsection) !important;
+      }
+      [data-theme="light"] .about__onecontent .about__contactwrap .abox { border-color: var(--cusborder) !important; }
+      /* Texto do título do acordeão de Serviços estava fixo a #fff */
+      [data-theme="light"] .ser__components .accordion-item .accordion-header .accordion-button { color: var(--white) !important; }
+      [data-theme="light"] .ser__components .accordion-body p { color: var(--pra) !important; }
+
+      /* Campo do formulário de resposta a comentários (blog) */
+      [data-theme="light"] .replay__box form input {
+        background-color: #fff !important;
+        border: 1px solid var(--cusborder) !important;
+        color: var(--white) !important;
+      }
+
+      /* ─────────────────────────────────────────────────────────
+         FIX: botões e ícones circulares que usavam var(--white)
+         como cor de fundo. No modo dark, --white = branco, dando
+         um "círculo branco com ícone escuro". No modo light,
+         --white passa a ser a cor do TEXTO (escura), por isso
+         estes círculos ficavam pretos. Forçamos branco fixo aqui,
+         já que o ícone/texto por cima usa var(--title), que já
+         fica escuro corretamente no modo light.
+         ───────────────────────────────────────────────────────── */
+      [data-theme="light"] .video__btn,
+      [data-theme="light"] .nice-select.open .list,
+      [data-theme="light"] .nice-select .option.selected.focus,
+      [data-theme="light"] .bgwhtie,
+      [data-theme="light"] .bgwhite,
+      [data-theme="light"] .owl-nav .owl-prev i,
+      [data-theme="light"] .owl-nav .owl-next i,
+      [data-theme="light"] .remove__click,
+      [data-theme="light"] .header-wrapper .main-menu li .sub-menu .sub-menutwo ul,
+      [data-theme="light"] .header-wrapper .main-menu li .sub-menu,
+      [data-theme="light"] .swiper-pagination3 .swiper-pagination-bullet,
+      [data-theme="light"] .details__bigthumb .prot__detail__contact .social li a,
+      [data-theme="light"] .pagination__box .pagi li a:hover,
+      [data-theme="light"] .scope__item .category li:hover a .arrow,
+      [data-theme="light"] .post__in .post__left a,
+      [data-theme="light"] .post__in .post__right .social-cus,
+      [data-theme="light"] .banner__rightinfo .banner__xlsocial .banner__soci li a,
+      [data-theme="light"] .about__section .singletab .tablinks li button,
+      [data-theme="light"] #services .iair-add-btn {
+        background: #fff !important;
+        background-color: #fff !important;
+      }
+      [data-theme="light"] .about__section .singletab .tablinks li button { border: 1px solid var(--cusborder) !important; }
+      [data-theme="light"] #services .iair-add-btn { color: var(--white) !important; border: 1px solid var(--cusborder) !important; }
     `;
     document.head.appendChild(s);
   }

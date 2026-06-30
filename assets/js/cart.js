@@ -236,7 +236,7 @@
       .icart-info { flex: 1; min-width: 0; }
       .icart-cat { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--icart-accent); margin-bottom: 4px; }
       .icart-name { font-size: 14px; font-weight: 600; color: var(--icart-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 8px; }
-      .icart-price { font-size: 15px; font-weight: 700; color: #fff; }
+      .icart-price { font-size: 15px; font-weight: 700; color: var(--icart-text); }
       
       .icart-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
       .icart-qty-wrap { display: flex; align-items: center; border: 1px solid var(--icart-border); border-radius: 8px; overflow: hidden; }

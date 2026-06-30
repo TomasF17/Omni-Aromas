@@ -26,14 +26,13 @@
 
     'dif-001': {
       type: 'difusor',
-      name: 'Infinity Pro 3000',
+      name: 'WAV-MDAS10001H',
       sku: 'WAV-MDAS10001H',
       price: 349,
       category: 'Difusor Profissional',
       m2: 1200,
       images: [
-        'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20,%20floating%20in%20a%20pure%20black%20background.%20The%20p%20218563.png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS10001H?updatedAt=1781688528523.png?tr=w-500,h-500,cm-pad_resize',
       ],
       capacidade: '2 reservatórios de 1000 ml (5 L úteis) · autonomia até 30 dias',
       segmentos: ['Hotelaria', 'Centros Comerciais', 'Escritórios Corporativos'],
@@ -42,14 +41,14 @@
 
     'dif-002': {
       type: 'difusor',
-      name: 'Compact Elite',
+      name: 'WAV-MDAS05P',
       sku: 'WAV-MDAS05P',
       price: 199,
       category: 'Difusor Compacto',
       m2: 150,
       images: [
-        'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS05P?updatedAt=1781688542439.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product(difusor),%20floating%20in%20a%20pure%20bl%20218563.png'
+        "https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS05P?updatedAt=1781688542439.png?tr=w-500,h-500,cm-pad_resize",
+        "https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS05P.png?updatedAt=1782814627100tr=w-500,h-500,cm-pad_resize?"
       ],
       capacidade: 'Reservatório de 100 ml · autonomia até 60 dias',
       segmentos: ['Receções', 'Salas de Reunião', 'Lojas de Pequena Dimensão'],
@@ -58,14 +57,14 @@
 
     'dif-003': {
       type: 'difusor',
-      name: 'Maxi Flow X5',
+      name: 'WAV-MDAS3000C',
       sku: 'WAV-MDAS3000C',
       price: 549,
       category: 'Difusor Industrial',
       m2: 3000,
       images: [
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS3000C?updatedAt=1781688552371.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS3000C.png?updatedAt=1782814681553'
       ],
       capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
       segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
@@ -81,7 +80,7 @@
       m2: 70,
       images: [
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS30N?updatedAt=1781688564444.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(1).png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS30N.png?updatedAt=1782814882730'
       ],
       capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
       segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
@@ -97,7 +96,7 @@
       m2: 50,
       images: [
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS501F?updatedAt=1781688600367.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS30N.png?updatedAt=1782814715636'
       ],
       capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
       segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
@@ -113,7 +112,7 @@
       m2: 90,
       images: [
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1500F?updatedAt=1781688612075.png',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563%20(2).png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS1500F.png?updatedAt=1782814913360'
       ],
      capacidade: 'Reservatório de 3000 ml · caudal industrial ajustável',
       segmentos: ['Naves Industriais', 'Ginásios', 'Grandes Superfícies'],
@@ -129,7 +128,7 @@
       m2: 120,
       images: [
         'https://ik.imagekit.io/mtrtszz/DIFUSORES/WAV-MDAS1001F',
-        'https://ik.imagekit.io/fsobpyaa5i/Firefly_Gemini%20Flash_Ultra%20realistic%20product%20reveal%20shot%20of%20a%20this%20product,%20floating%20in%20a%20pure%20black%20backg%20218563.png'
+        'https://ik.imagekit.io/mtrtszz/DIFUSORES/BRANCO/BRANCO/WAV-MDAS1001F.png?updatedAt=1782814939795'
       ],
       capacidade: 'Reservatório de 300 ml · controlo via aplicação móvel',
       segmentos: ['Residências', 'Apartamentos', 'Home Office'],
